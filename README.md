@@ -203,3 +203,13 @@ if (jkeys.getSwipe("Right").swiped) {
 NOTE WELL: You should Enclose all of your call commands inside a `if (jkeys.isReady)` this ensures all the code and images are loaded up.
 
 And with that you have seen all the basic how-tos of the code. I wish you the best of luck in using this small library I've built and on your future endevours.
+
+### Copyright/License
+
+This is my first ever code library/plug-in.
+
+This code is based ontop of the Mozilla Multi-touch code. `Resources` is code I had picked up a while back for a project, and I've been using it. I can't remember who it belongs to, but it certainly belongs to that person. 
+
+I'm not sure what License to release this under.  (?) I really don't.
+
+Most of the code was written by me, Vishal Ramkissoon.

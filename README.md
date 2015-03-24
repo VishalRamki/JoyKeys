@@ -9,6 +9,14 @@ JoyKeys provide constructors for building a JoyPad out of Sprite-based buttons, 
 
 JoyKeys also allows you to Swipe Only Within Particular Regions.
 
+Road Map
+--------
+
+There's a lot of stuff I'm looking into for implementation. Just a few things to look forward to:
+
+1. Binding your in-game objects to JoyKeys to have JoyKeys drag it around.
+2. Drawing Custom Gestures to fire off in the same manner as the swipe functions.
+
 Initilizing JoyKeys
 -------------------
 

@@ -14,7 +14,7 @@ Road Map
 
 There's a lot of stuff I'm looking into for implementation. Just a few things to look forward to:
 
-1. Binding your in-game objects to JoyKeys to have JoyKeys drag it around.
+1. Binding your in-game objects to JoyKeys to have JoyKeys drag it around. [DONE @ 24/03/15]
 2. Drawing Custom Gestures to fire off in the same manner as the swipe functions.
 
 Initilizing JoyKeys
@@ -209,6 +209,32 @@ if (jkeys.getSwipe("Right").swiped) {
 ```
 
 NOTE WELL: You should Enclose all of your call commands inside a `if (jkeys.isReady)` this ensures all the code and images are loaded up.
+
+## Interacting With In-Game Objects
+
+In order to interact with in-game objects, i.e. drag it around and etc. You have to make sure the object has the following parameters available to public from within your own `Object` Class. For Example: Your `Player` Class
+
+```javascript
+var Player = function() {
+    this.x; // Objects' X-Pos
+    this.y; // Object's Y-Pos
+    this.width; // Object's Width
+    this.height; // Object's Height
+};
+```
+
+This is done to keep you from having to much clutter in your code. The `BoundObject` class takes care of moving around the object.
+
+Once you have created your own object, you have to bind it to `JoyKeys`. This is done by the following:
+
+```javascript
+jkeys.bindObject({
+"name": "Player", // Simple Identifer
+"objectToBind": Player // Your Own Instance of an Object
+});
+```
+
+And with that you can now drag around your objects!
 
 And with that you have seen all the basic how-tos of the code. I wish you the best of luck in using this small library I've built and on your future endevours.
 

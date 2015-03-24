@@ -1,0 +1,11 @@
+JOYKEYS - VERION 1 ALPHA
+
+Change Log
+
+[24/03/15] 12:40 AM
+
+Alpha version of JoyKeys completed. Most of the smaller kinks in the code have been worked out. It works almost as should. They are still things that need to be implemented, small performance issues here and there and a few redundant if checks. 
+
+JoyKeys Alpha has support for On-Screen Buttons, Canvas Regions and for Interactive Swipes.
+
+There are limitations for the Canvas Regions, however. Canvas Regions are currently (much like the buttons) only checked as rectangles. 

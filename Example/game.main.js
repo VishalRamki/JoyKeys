@@ -86,7 +86,6 @@ var init = function() {
 
 // BASIC BUTTONS CREDIT: http://kenney.nl/assets
 resources.load([
-// You May Use your own keys here (I can't Figure out how to upload images to here)
 	'basic/arrowUp.png',
 	'basic/arrowDown.png',
 	'basic/arrowLeft.png',
@@ -130,11 +129,13 @@ Player.prototype.draw = function() {
 };
 
 var tester = new Player(100, 100, 50, 50);
+var tester2 = new Player(140, 200, 50, 50);
 
 var Game = {
 
     update: function(dt) {
         tester.update(dt);
+        tester2.update(dt);
         jkeys.update();
         
         if (jkeys.isReady) {
@@ -164,6 +165,7 @@ var Game = {
         ctx.clearRect(0, 0, 800, 600);
 
         tester.draw();
+        tester2.draw();
 
         jkeys.draw();
         
@@ -181,6 +183,11 @@ var Game = {
             slow = 1, // options.slow || 1
             step = 1/60, // 1/options.fps
             slowStep = slow * step;
+        
+        jkeys.bindObject({
+            "name": "Player",
+            "objectToBind": tester2
+        });
         
         function frame() {
 

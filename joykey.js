@@ -1,9 +1,9 @@
 
 /*
 
-    JoyKeys Version 1 ALPHA
+    JoyKeys Version 1.05 ALPHA
     By: Vishal Ramkissoon
-    Date: 24/03/15 @ 1:22AM 
+    Date: 24/03/15 @ 1:06PM 
 
 */
 
@@ -102,15 +102,41 @@
         }
     };
 
+    var BoundObject = function(params) {
+        this.id = params.name;
+        this.obj = params.objectToBind;
+        this.isHeld = false;
+    };
+
+
+    BoundObject.prototype.toX = function(value) {
+        this.obj.x = value;
+    };
+
+    BoundObject.prototype.toY = function(value) {
+        this.obj.y = value;
+    };
+
+    BoundObject.prototype.moveTo = function(x, y) {
+        this.obj.x = x;
+        this.obj.y = y;
+    };
+
 
 	var joyKeys = function() {
 		this.keys = new Array();
         this.regions = new Array();
         this.swipes = new Array();
         
+        this.objectPool = new Array();
+        
         this.isReady = false;
         this.debug = false;
 	};
+
+    joyKeys.prototype.bindObject = function(params) {
+        this.objectPool[this.objectPool.length++] = new BoundObject(params);
+    };
 
     joyKeys.prototype.addSwipe = function(swipe) {
         this.swipes[this.swipes.length++] = swipe;
@@ -237,6 +263,20 @@
                     }
                 }
 				
+                // Handle Objects
+                
+                for (var j = 0; j < jkeys.objectPool.length; j++) {
+                    if (((touches[i].pageX - this.offsetLeft) > jkeys.objectPool[j].obj.x) &&
+                        ((touches[i].pageX - this.offsetLeft) <= (jkeys.objectPool[j].obj.x + jkeys.objectPool[j].obj.width))) {
+                        
+                        if (((touches[i].pageY - this.offsetTop) > jkeys.objectPool[j].obj.y) &&
+                            ((touches[i].pageY - this.offsetTop) <= (jkeys.objectPool[j].obj.y + jkeys.objectPool[j].obj.height))) {
+                                jkeys.objectPool[j].isHeld = true;
+                        }
+                        
+                    }
+                }
+                
 				ongoingTouches.push(copyTouch(touches[i]));
 			}
 	};
@@ -279,6 +319,14 @@
                         jkeys.regions[j].press();    
                     }
                     
+                }
+                
+                // Handle Objects
+                
+                for (var j = 0; j < jkeys.objectPool.length; j++) {
+                    if (jkeys.objectPool[j].isHeld) {
+                        jkeys.objectPool[j].moveTo((touches[i].pageX - this.offsetLeft), (touches[i].pageY - this.offsetTop));    
+                    }
                 }
 				
 				ctx.moveTo(ongoingTouches[idx].pageX - this.offsetLeft, ongoingTouches[idx].pageY - this.offsetTop);
@@ -459,6 +507,15 @@
 						jkeys.keys[j].leave();
 					}
 				}
+                
+                // Handle Objects
+                
+                for (var j = 0; j < jkeys.objectPool.length; j++) {
+                    if (jkeys.objectPool[j].isHeld) {
+                        jkeys.objectPool[j].moveTo((touches[i].pageX - this.offsetLeft), (touches[i].pageY - this.offsetTop));
+                        jkeys.objectPool[j].isHeld = false;
+                    }
+                }
                 
                 
 				
